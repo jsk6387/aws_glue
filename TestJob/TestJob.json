@@ -1,0 +1,39 @@
+{
+  "name" : "TestJob",
+  "description" : "",
+  "role" : "arn:aws:iam::720013472838:role/AWSGlueStudioRole",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-720013472838-us-east-1/scripts/TestJob.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-720013472838-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-720013472838-us-east-1/temporary/"
+  },
+  "maxRetries" : 3,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1\":{\"S3CatalogSource\":{\"AdditionalOptions\":{},\"Database\":\"yyz-tickets\",\"Name\":\"S3 bucket\",\"PartitionPredicate\":\"\",\"Table\":\"tickets\"}},\"node-2\":{\"ApplyMapping\":{\"Inputs\":[\"node-1\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"tag_number_masked\"],\"FromType\":\"string\",\"ToKey\":\"tag_number_masked\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"date_of_infraction\"],\"FromType\":\"string\",\"ToKey\":\"date_of_infraction\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"ticket_date\"],\"FromType\":\"string\",\"ToKey\":\"ticket_date\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"ticket_number\"],\"FromType\":\"decimal\",\"ToKey\":\"ticket_number\",\"ToType\":\"float\"},{\"Dropped\":false,\"FromPath\":[\"officer\"],\"FromType\":\"decimal\",\"ToKey\":\"officer_name\",\"ToType\":\"decimal\"},{\"Dropped\":false,\"FromPath\":[\"infraction_code\"],\"FromType\":\"decimal\",\"ToKey\":\"infraction_code\",\"ToType\":\"decimal\"},{\"Dropped\":false,\"FromPath\":[\"infraction_description\"],\"FromType\":\"string\",\"ToKey\":\"infraction_description\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"set_fine_amount\"],\"FromType\":\"decimal\",\"ToKey\":\"set_fine_amount\",\"ToType\":\"float\"},{\"Dropped\":false,\"FromPath\":[\"time_of_infraction\"],\"FromType\":\"decimal\",\"ToKey\":\"time_of_infraction\",\"ToType\":\"decimal\"},{\"Dropped\":true,\"FromPath\":[\"location1\"],\"FromType\":\"string\",\"ToKey\":\"location1\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"location2\"],\"FromType\":\"string\",\"ToKey\":\"location2\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"location3\"],\"FromType\":\"string\",\"ToKey\":\"location3\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"location4\"],\"FromType\":\"string\",\"ToKey\":\"location4\",\"ToType\":\"string\"},{\"Dropped\":true,\"FromPath\":[\"province\"],\"FromType\":\"string\",\"ToKey\":\"province\",\"ToType\":\"string\"}],\"Name\":\"Ticket_Mapping\"}},\"node-3\":{\"S3DirectTarget\":{\"Compression\":\"gzip\",\"Format\":\"json\",\"Inputs\":[\"node-2\"],\"Name\":\"Target\",\"PartitionKeys\":[],\"Path\":\"s3://glue-studio-blog-720013472838\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "aws_glue",
+    "branch" : "main",
+    "folder" : "TestJob"
+  }
+}
